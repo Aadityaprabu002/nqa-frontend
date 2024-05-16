@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# Newspaper Question Answering (NQA) Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+Frontend for NQA
 
-In the project directory, you can run:
+## Prerequisites
 
-### `npm start`
+Before you begin, ensure you have met the following requirements:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- node v20.10.0
+- npm v10.2.3 installed on your machine.
+- yarn v1.22.22 installed to manage dependencies.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation
 
-### `npm test`
+### Step 1: Install Node.js and npm
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Download Node.js and npm**: Visit the official [Node.js website](https://nodejs.org/) and download the below versions
 
-### `npm run build`
+   - **node v20.10.0**
+   - **npm v10.2.3**
+   - also specified in the `package.json` file suitable for your operating system.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install node.js and npm**: Run the installer and follow the on-screen instructions.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Verify Installation**: Open a terminal or command prompt and run the following commands to verify the installation:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```sh
+   node --version
+   #output v20.10.0
+   npm --version
+   #output 10.2.3
+   ```
 
-### `npm run eject`
+   You should see outputs indicating the versions of Node.js and npm installed, matching the versions specified in the `package.json` file.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Step 2: Install yarn v1.22.22 using npm
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Open a terminal or command prompt**.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Run the following command** to install Yarn globally using npm:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+   ```sh
+   npm install -g yarn@1.22.22
+   ```
 
-## Learn More
+   This command will install Yarn globally on your system.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Verify Installation**: Run the following command to verify that Yarn is installed:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+   ```sh
+   yarn --version
+   #output 1.22.22
+   ```
 
-### Code Splitting
+   You should see an output indicating the version of Yarn installed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Step 3: Install Project Dependencies
 
-### Analyzing the Bundle Size
+1. **Clone the repository**: If you haven't already, clone the repository to your local machine:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+   ```sh
+   git clone "this repository link"
+   ```
 
-### Making a Progressive Web App
+2. **Navigate to the project directory**:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+   ```sh
+   cd src_nqa_frontend
+   ```
 
-### Advanced Configuration
+3. **Install project dependencies** using yarn:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+   ```sh
+   yarn install
+   ```
 
-### Deployment
+### Step 4: Install react-app-rewired
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. **Install react-app-rewired**:
 
-### `npm run build` fails to minify
+   ```sh
+   yarn add react-app-rewired
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Step 5: Start the frontend server
+
+1. **Run this command to start the frontend**
+   ```sh
+   yarn start
+   ```
