@@ -10,8 +10,11 @@ import styles from "../styles/questionAnsweringStyles";
 import NewspaperProcessing from "./NewspaperProcessing";
 import useQuestionAnswering from "../hooks/useQuestionAnswering";
 import AnswerLayout from "./AnswerLayout";
+import Message from "./Message";
 function QuestionAnswering() {
   const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+
   const [question, setQuestion] = useState("");
   const [useDatabase, setUseDatabase] = useState(false);
   const [answerLoaded, setAnswerLoaded] = useState(false);
@@ -23,26 +26,35 @@ function QuestionAnswering() {
   const handleUseDatabase = (value) => {
     setUseDatabase(value);
     handleHasProcessed(value);
-    setMessage("");
+    handleSetMessage("");
   };
   const handleHasProcessed = (value) => {
     setHasProcessed(value);
   };
-  const handleSetMessage = (value) => {
-    setMessage(value);
+  const handleSetMessage = (message, isError = false) => {
+    setMessage(message);
+    setIsError(isError);
   };
   const handleAskQuestion = async (question) => {
     setAnswer({});
     setAnswerLoaded(false);
+    handleSetMessage("");
+    if (!question || question === "") {
+      handleSetMessage("Please enter a question", true);
+      return;
+    }
     const result = await askQuestion(question);
-    if (result.message) {
-      setMessage(result.message);
+    if (result.error) {
+      handleSetMessage(result.message, true);
     } else {
       setAnswer(result);
       setAnswerLoaded(true);
     }
   };
-
+  const handleSetQuestion = (value) => {
+    setQuestion(value);
+    setAnswerLoaded(false);
+  };
   return (
     <div className={classes.container}>
       <Box>
@@ -73,7 +85,7 @@ function QuestionAnswering() {
           <TextField
             type="text"
             value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            onChange={(e) => handleSetQuestion(e.target.value)}
             placeholder="Ask something from the newspaper article"
             style={{ marginRight: "10px", marginBottom: "0" }}
           />
@@ -89,9 +101,16 @@ function QuestionAnswering() {
         </div>
       )}
 
-      {message && <div>{message}</div>}
+      <Message message={message} isError={isError} />
+
       {answerLoading && <CircularProgress />}
-      {answerLoaded && <AnswerLayout answer={answer} />}
+      {answerLoaded && (
+        <AnswerLayout
+          question={question}
+          answer={answer}
+          handleSetMessage={handleSetMessage}
+        />
+      )}
     </div>
   );
 }

@@ -9,7 +9,7 @@ const useQuestionAnswering = () => {
       answer = await questionAnsweringService(question);
     } catch (error) {
       answer = {
-        message: "Error asking question. Please try again.",
+        error: "Error asking question. Please try again.",
       };
     }
 
