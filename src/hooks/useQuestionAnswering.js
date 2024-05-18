@@ -17,7 +17,7 @@ const useQuestionAnswering = () => {
     return answer;
   };
 
-  return { askQuestion, answerLoading };
+  return { askQuestion, answerLoading, setAnswerLoading };
 };
 
 export default useQuestionAnswering;

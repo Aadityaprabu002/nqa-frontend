@@ -9,6 +9,11 @@ const styles = makeStyles((theme) => ({
     gap: "20px",
     padding: "20px",
   },
+  askButton: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
 }));
 
 export default styles;
