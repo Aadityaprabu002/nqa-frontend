@@ -2,12 +2,18 @@ import React from "react";
 import styles from "../styles/layoutStyles";
 import QuestionAnswering from "./QuestionAnswering";
 import NewspaperAnalytics from "./NewspaperAnalytics";
+import Header from "./Header";
 function Layout() {
   const classes = styles();
   return (
-    <div className={classes.layoutContainer}>
-      <div className={classes.leftDivision}>{<NewspaperAnalytics />}</div>
-      <div className={classes.rightDivision}>{<QuestionAnswering />}</div>
+    <div>
+      <div className={classes.header}>
+        <Header></Header>
+      </div>
+      <div className={classes.layoutContainer}>
+        <div className={classes.leftDivision}>{<NewspaperAnalytics />}</div>
+        <div className={classes.rightDivision}>{<QuestionAnswering />}</div>
+      </div>
     </div>
   );
 }

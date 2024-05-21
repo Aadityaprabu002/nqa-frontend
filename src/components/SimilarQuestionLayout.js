@@ -1,6 +1,5 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useState } from "react";
-
 function SimilarQuestionLayout({
   similarQuestions,
   handleClickOnSimilarQuestion,
@@ -18,15 +17,22 @@ function SimilarQuestionLayout({
         <div
           style={{ border: "black 1px solid " }}
           key={index}
-          onClick={() => handleClickOnSimilarQuestion(data.questionId)}
+          onClick={() =>
+            handleClickOnSimilarQuestion(data.similarQuestion, data.questionId)
+          }
         >
           <h2>Similar Question : {data.similarQuestion}</h2>
           <h2>Related Article Count : {data.relatedArticlesCount}</h2>
         </div>
       ))}
-      <Button variant="contained" onClick={handleAskQuestion}>
-        Click here to search in database!
-      </Button>
+      <div>
+        <Typography variant="subtitle1">
+          Not finding any results then proceed to search in database
+        </Typography>
+        <Button variant="contained" onClick={handleAskQuestion}>
+          Search
+        </Button>
+      </div>
     </div>
   );
 }

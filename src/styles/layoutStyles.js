@@ -7,11 +7,11 @@ const styles = makeStyles((theme) => ({
   },
   leftDivision: {
     flexGrow: 1,
-    width: "30%",
+    width: "50%",
   },
   rightDivision: {
     flexGrow: 1,
-    width: "70%",
+    width: "50%",
   },
 }));
 

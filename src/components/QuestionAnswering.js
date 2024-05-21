@@ -5,6 +5,7 @@ import {
   Checkbox,
   CircularProgress,
   TextField,
+  Typography,
 } from "@mui/material";
 import styles from "../styles/questionAnsweringStyles";
 import NewspaperProcessing from "./NewspaperProcessing";
@@ -24,10 +25,13 @@ function QuestionAnswering() {
   const [answer, setAnswer] = useState({});
   const [similarQuestions, setSimilarQuestions] = useState([]);
   const [similarQuestionsLoaded, setSimilarQuestionsLoaded] = useState(false);
+  const [similarQuestionAnswerLoaded, setSimilarQuestionAnswerLoaded] =
+    useState(false);
   const { askQuestion, answerLoading } = useQuestionAnswering();
+  // eslint-disable-next-line
   const {
     askSimilarQuestion,
-    fetchArticlesRelatedToQuestionId,
+    fetchArticlesAndAnswersRelatedToQuestionId,
     similarQuestionLoading,
     similarQuestionAnswerLoading,
   } = useSimilarQuestionAnswering();
@@ -46,16 +50,19 @@ function QuestionAnswering() {
     setMessage(message);
     setIsError(isError);
   };
-  const handleClickOnSimilarQuestion = async (questionId) => {
+  const handleClickOnSimilarQuestion = async (question, questionId) => {
     setAnswer({});
-    setAnswerLoaded(false);
+    setSimilarQuestionAnswerLoaded(false);
     handleSetMessage("");
-    const result = await fetchArticlesRelatedToQuestionId(questionId);
+    const result = await fetchArticlesAndAnswersRelatedToQuestionId(
+      question,
+      questionId
+    );
     if (result.error) {
       handleSetMessage(result.message, true);
     } else {
       setAnswer(result);
-      setAnswerLoaded(true);
+      setSimilarQuestionAnswerLoaded(true);
     }
   };
   const handleAskSimilarQuestion = async () => {
@@ -87,6 +94,7 @@ function QuestionAnswering() {
       return;
     }
     const result = await askQuestion(question);
+    console.log(result);
     if (result.error) {
       handleSetMessage(result.message, true);
     } else {
@@ -100,6 +108,8 @@ function QuestionAnswering() {
   };
   return (
     <div className={classes.container}>
+      <Typography variant="h2">Query</Typography>
+
       <Box>
         <label>Use database</label>
 
@@ -140,15 +150,6 @@ function QuestionAnswering() {
               }}
               style={{ marginBottom: "0" }}
             >
-              Search Similar Question
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {
-                handleAskQuestion();
-              }}
-              style={{ marginBottom: "0" }}
-            >
               Ask
             </Button>
           </div>
@@ -165,8 +166,10 @@ function QuestionAnswering() {
           handleAskQuestion={handleAskQuestion}
         />
       )}
-      {answerLoading && <CircularProgress />}
-      {answerLoaded && (
+
+      {(answerLoading || similarQuestionAnswerLoading) && <CircularProgress />}
+
+      {(answerLoaded || similarQuestionAnswerLoaded) && (
         <AnswerLayout
           question={question}
           answer={answer}

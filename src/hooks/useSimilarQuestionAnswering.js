@@ -7,11 +7,17 @@ const useSimilarQuestionAnswering = () => {
   const [similarQuestionLoading, setSimilarQuestionLoading] = useState(false);
   const [similarQuestionAnswerLoading, setSimilarQuestionAnswerLoading] =
     useState(false);
-  const fetchArticlesRelatedToQuestionId = async (questionId) => {
+  const fetchArticlesAndAnswersRelatedToQuestionId = async (
+    question,
+    questionId
+  ) => {
     setSimilarQuestionAnswerLoading(true);
     let similarQuestionAnswer;
     try {
-      similarQuestionAnswer = await similarQuestionAnswerService(questionId);
+      similarQuestionAnswer = await similarQuestionAnswerService(
+        question,
+        questionId
+      );
     } catch (error) {
       similarQuestionAnswer = {
         error: "Error loading similar questions. Please try again.",
@@ -35,7 +41,7 @@ const useSimilarQuestionAnswering = () => {
   };
   return {
     askSimilarQuestion,
-    fetchArticlesRelatedToQuestionId,
+    fetchArticlesAndAnswersRelatedToQuestionId,
     similarQuestionLoading,
     similarQuestionAnswerLoading,
   };

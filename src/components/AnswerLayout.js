@@ -26,10 +26,12 @@ const AnswerLayout = ({ question, answer, handleSetMessage }) => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   // eslint-disable-next-line
   const [relevantArticles, setRelevantArticles] = useState(answer["articles"]);
+  // eslint-disable-next-line
+  const [canFeedback, setCanFeedback] = useState(answer["canFeedback"]);
   const [relevancyList, setRelevancylist] = useState(
     Array.from({ length: relevantArticles.length }, () => "")
   );
-
+  console.log(relevantArticles);
   const { submitFeedback, feedbackSubmissionLoading } = useFeedback();
   const handleNext = () => {
     setCurrentIndex(parseInt((currentIndex + 1) % relevantArticles.length));
@@ -72,7 +74,7 @@ const AnswerLayout = ({ question, answer, handleSetMessage }) => {
     setHasSubmitted(true);
   };
   if (relevantArticles.length === 0) {
-    handleSetMessage("No relevant articles found.", true);
+    handleSetMessage("No articles found", true);
     return;
   }
 
@@ -87,25 +89,28 @@ const AnswerLayout = ({ question, answer, handleSetMessage }) => {
             Next
           </Button>
         </div>
-        <div>
-          <RadioGroup
-            row={true}
-            className={classes.relevancyContainer}
-            value={relevancyList[currentIndex]}
-            onChange={handleRadioChange}
-          >
-            <FormControlLabel
-              value="relevant"
-              control={<Radio />}
-              label="Relevant"
-            />
-            <FormControlLabel
-              value="irrelevant"
-              control={<Radio />}
-              label="Irrelevant"
-            />
-          </RadioGroup>
-        </div>
+        {canFeedback && (
+          <div>
+            <RadioGroup
+              row={true}
+              className={classes.relevancyContainer}
+              value={relevancyList[currentIndex]}
+              onChange={handleRadioChange}
+            >
+              <FormControlLabel
+                value="relevant"
+                control={<Radio />}
+                label="Relevant"
+              />
+              <FormControlLabel
+                value="irrelevant"
+                control={<Radio />}
+                label="Irrelevant"
+              />
+            </RadioGroup>
+          </div>
+        )}
+
         <h1>
           Article {currentIndex + 1} out of {relevantArticles.length}{" "}
         </h1>
@@ -129,7 +134,7 @@ const AnswerLayout = ({ question, answer, handleSetMessage }) => {
       {hasSubmitted && (
         <p className={classes.message}>Relevance score submitted!</p>
       )}
-      {!hasSubmitted && (
+      {!hasSubmitted && canFeedback && (
         <Button variant="contained" onClick={handleSubmitFeedback}>
           Submit Relevance Score
         </Button>
