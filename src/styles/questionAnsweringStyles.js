@@ -14,6 +14,10 @@ const styles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "space-between",
   },
+  useDatabase: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 export default styles;

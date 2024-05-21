@@ -1,6 +1,7 @@
-import { Box, Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Input } from "@mui/material";
 import React, { useState } from "react";
 import useNewspaperProcessing from "../hooks/useNewspaperProcessing";
+import styles from "../styles/newspaperProcessingStyles";
 const NewspaperProcessing = ({
   handleHasProcessed,
   hasProcessed,
@@ -32,20 +33,24 @@ const NewspaperProcessing = ({
       setHasFileUploaded(true);
     }
   };
-
+  const classes = styles();
   return isProcessing ? (
     <CircularProgress />
   ) : (
     !hasProcessed && (
-      <div>
-        <Box>
-          <input type="file" onChange={handleFileChange} />
+      <div className={classes.container}>
+        <div className={classes.fileUpload}>
+          <Input color="secondary" type="file" onChange={handleFileChange} />
           {hasFileUploaded && (
-            <Button variant="contained" onClick={handleProcess}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleProcess}
+            >
               Process
             </Button>
           )}
-        </Box>
+        </div>
       </div>
     )
   );

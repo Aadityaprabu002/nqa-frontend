@@ -6,8 +6,10 @@ import {
   Radio,
   FormControlLabel,
   CircularProgress,
+  Typography,
 } from "@mui/material";
 import useFeedback from "../hooks/useFeedback";
+import { green } from "@mui/material/colors";
 
 const Base64Image = ({ base64String }) => {
   return (
@@ -77,15 +79,64 @@ const AnswerLayout = ({ question, answer, handleSetMessage }) => {
     handleSetMessage("No articles found", true);
     return;
   }
-
+  console.log(answer["canFeedback"]);
   return (
     <div className={classes.answerContainer}>
       <div className={classes.container}>
+        <div style={{ textAlign: "justify" }}>
+          <Typography variant="h2" style={{ textAlign: "center" }}>
+            Article {currentIndex + 1} out of {relevantArticles.length}{" "}
+          </Typography>
+          <br></br>
+          <Typography variant="h4">
+            {" "}
+            The answer extracted from this article is "
+            <Typography variant="h4" component={"span"} color={green[600]}>
+              {relevantArticles[currentIndex].extractedSentence}
+            </Typography>
+            {' " '}
+            with a confidence score of{" "}
+            <Typography variant="h4" component={"span"} color={green[600]}>
+              {Math.round(
+                parseFloat(
+                  relevantArticles[currentIndex].extractedAnswer.score * 100
+                )
+              )}{" "}
+              %
+            </Typography>
+          </Typography>
+          <br></br>
+          <Typography variant="h6">
+            <Typography variant="h6" color={green[600]}>
+              Extracted Title:
+            </Typography>
+            {relevantArticles[currentIndex].title}
+          </Typography>
+          <br></br>
+          <Typography variant="h6">
+            <Typography variant="h6" color={green[600]}>
+              Extracted Body:
+            </Typography>
+            {relevantArticles[currentIndex].body}
+          </Typography>
+          <br></br>
+          <Typography variant="h6">
+            <Typography variant="h6" color={green[600]}>
+              Extracted Author:
+            </Typography>
+            {relevantArticles[currentIndex].author}
+          </Typography>
+          <br></br>
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="h3">Image</Typography>
+            <Base64Image base64String={relevantArticles[currentIndex].image} />
+          </div>
+        </div>
         <div className={classes.navigator}>
-          <Button variant="outlined" onClick={handlePrev}>
+          <Button variant="contained" color="secondary" onClick={handlePrev}>
             Previous
           </Button>
-          <Button variant="outlined" onClick={handleNext}>
+          <Button variant="contained" color="secondary" onClick={handleNext}>
             Next
           </Button>
         </div>
@@ -100,46 +151,39 @@ const AnswerLayout = ({ question, answer, handleSetMessage }) => {
               <FormControlLabel
                 value="relevant"
                 control={<Radio />}
-                label="Relevant"
+                label={
+                  <Typography variant="h4" color={green[600]}>
+                    Relevant
+                  </Typography>
+                }
               />
               <FormControlLabel
                 value="irrelevant"
                 control={<Radio />}
-                label="Irrelevant"
+                label={<Typography variant="h4">Irrelevant</Typography>}
               />
             </RadioGroup>
           </div>
         )}
-
-        <h1>
-          Article {currentIndex + 1} out of {relevantArticles.length}{" "}
-        </h1>
-        <Base64Image base64String={relevantArticles[currentIndex].image} />
-        <p>
-          Extracted Sentence: {relevantArticles[currentIndex].extractedSentence}
-        </p>
-        <pre>
-          <code>
-            {JSON.stringify(
-              relevantArticles[currentIndex].extractedAnswer,
-              null,
-              2
-            )}
-          </code>
-        </pre>
-        <p>Title: {relevantArticles[currentIndex].title}</p>
-        <p>Body: {relevantArticles[currentIndex].body}</p>
-        <p>Author: {relevantArticles[currentIndex].author}</p>
+        {hasSubmitted && (
+          <Typography variant="h4" color={green[600]}>
+            Relevance score submitted!
+          </Typography>
+        )}
+        <br></br>
+        {!hasSubmitted && canFeedback && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleSubmitFeedback}
+          >
+            Submit Relevance Score
+          </Button>
+        )}
+        <br></br>
+        {feedbackSubmissionLoading && <CircularProgress />}
+        <br></br>
       </div>
-      {hasSubmitted && (
-        <p className={classes.message}>Relevance score submitted!</p>
-      )}
-      {!hasSubmitted && canFeedback && (
-        <Button variant="contained" onClick={handleSubmitFeedback}>
-          Submit Relevance Score
-        </Button>
-      )}
-      {feedbackSubmissionLoading && <CircularProgress />}
     </div>
   );
 };

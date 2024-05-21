@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Box,
   Button,
   Checkbox,
   CircularProgress,
@@ -88,6 +87,7 @@ function QuestionAnswering() {
     setSimilarQuestions([]);
     setSimilarQuestionsLoaded(false);
     setAnswerLoaded(false);
+    setSimilarQuestionAnswerLoaded(false);
     handleSetMessage("");
     if (!question || question === "") {
       handleSetMessage("Please enter a question", true);
@@ -110,15 +110,18 @@ function QuestionAnswering() {
     <div className={classes.container}>
       <Typography variant="h2">Query</Typography>
 
-      <Box>
-        <label>Use database</label>
+      <div className={classes.useDatabase}>
+        <Typography variant="h5" component={"span"}>
+          Use database
+        </Typography>
 
         <Checkbox
+          color="secondary"
+          size="large"
           checked={useDatabase}
           onChange={(e) => handleUseDatabase(e.target.checked)}
-          color="primary"
         />
-      </Box>
+      </div>
       {!useDatabase && (
         <NewspaperProcessing
           handleHasProcessed={handleHasProcessed}
@@ -133,6 +136,7 @@ function QuestionAnswering() {
             display: "flex",
             width: "50vh",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <TextField
@@ -145,6 +149,7 @@ function QuestionAnswering() {
           <div className={classes.askButton}>
             <Button
               variant="contained"
+              color="secondary"
               onClick={() => {
                 handleAskSimilarQuestion();
               }}

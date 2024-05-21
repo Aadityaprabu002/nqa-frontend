@@ -1,35 +1,50 @@
 import { Button, Typography } from "@mui/material";
 import React, { useState } from "react";
+import styles from "../styles/similarQuestionLayoutStyles";
 function SimilarQuestionLayout({
   similarQuestions,
   handleClickOnSimilarQuestion,
   handleSetMessage,
   handleAskQuestion,
 }) {
+  const classes = styles();
   // eslint-disable-next-line
   const [similarQuestionsList, setSimilarQuestionsList] =
     useState(similarQuestions);
   return (
-    <div className="question-block">
+    <div>
       {similarQuestionsList.length === 0 &&
         handleSetMessage("No similar questions found", true)}
+      <Typography variant="h4">Similar Questions</Typography>
       {similarQuestionsList.map((data, index) => (
-        <div
-          style={{ border: "black 1px solid " }}
-          key={index}
-          onClick={() =>
-            handleClickOnSimilarQuestion(data.similarQuestion, data.questionId)
-          }
-        >
-          <h2>Similar Question : {data.similarQuestion}</h2>
-          <h2>Related Article Count : {data.relatedArticlesCount}</h2>
+        <div className={classes.question}>
+          <Typography
+            variant="h6"
+            key={index}
+            onClick={() =>
+              handleClickOnSimilarQuestion(
+                data.similarQuestion,
+                data.questionId
+              )
+            }
+          >
+            " {data.similarQuestion} "
+            <Typography variant="h6">
+              Related article count : {data.relatedArticlesCount}
+            </Typography>
+          </Typography>
         </div>
       ))}
-      <div>
+      <div className={classes.notFindResult}>
         <Typography variant="subtitle1">
           Not finding any results then proceed to search in database
         </Typography>
-        <Button variant="contained" onClick={handleAskQuestion}>
+        <br></br>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleAskQuestion}
+        >
           Search
         </Button>
       </div>
