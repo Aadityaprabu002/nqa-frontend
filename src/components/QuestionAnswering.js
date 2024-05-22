@@ -13,7 +13,7 @@ import AnswerLayout from "./AnswerLayout";
 import Message from "./Message";
 import SimilarQuestionLayout from "./SimilarQuestionLayout";
 import useSimilarQuestionAnswering from "../hooks/useSimilarQuestionAnswering";
-function QuestionAnswering() {
+function QuestionAnswering({ handleAnalyticsProcessing }) {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
@@ -125,6 +125,7 @@ function QuestionAnswering() {
       {!useDatabase && (
         <NewspaperProcessing
           handleHasProcessed={handleHasProcessed}
+          handleAnalyticsProcessing={handleAnalyticsProcessing}
           handleSetMessage={handleSetMessage}
           hasProcessed={hasProcessed}
         />

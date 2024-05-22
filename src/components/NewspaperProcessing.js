@@ -6,12 +6,14 @@ const NewspaperProcessing = ({
   handleHasProcessed,
   hasProcessed,
   handleSetMessage,
+  handleAnalyticsProcessing,
 }) => {
   const [file, setFile] = useState(null);
   const [hasFileUploaded, setHasFileUploaded] = useState(false);
   const { process, isProcessing } = useNewspaperProcessing(
     handleHasProcessed,
-    handleSetMessage
+    handleSetMessage,
+    handleAnalyticsProcessing
   );
 
   const handleProcess = () => {

@@ -1,6 +1,10 @@
 import { useState } from "react";
 import apiService from "../services/apiService";
-const useNewspaperProcessing = (handleHasProcessed, handleSetMessage) => {
+const useNewspaperProcessing = (
+  handleHasProcessed,
+  handleSetMessage,
+  handleAnalyticsProcessing
+) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const process = async (file) => {
     if (!file) {
@@ -11,6 +15,8 @@ const useNewspaperProcessing = (handleHasProcessed, handleSetMessage) => {
     formData.append("file", file);
     handleHasProcessed(false);
     setIsProcessing(true);
+
+    handleAnalyticsProcessing(true);
     await apiService
       .post("process", formData)
       .then((response) => {
@@ -22,9 +28,13 @@ const useNewspaperProcessing = (handleHasProcessed, handleSetMessage) => {
         }
       })
       .catch((error) => {
-        handleSetMessage("Error processing the PDF file. Please try again.");
+        handleSetMessage(
+          "Error processing the PDF file. Please try again.",
+          true
+        );
       });
     setIsProcessing(false);
+    handleAnalyticsProcessing(false);
   };
   return { process, isProcessing };
 };
