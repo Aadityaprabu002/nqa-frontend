@@ -17,6 +17,7 @@ const NewspaperProcessing = ({
   );
 
   const handleProcess = () => {
+    handleSetMessage("");
     process(file);
   };
   const handleFileChange = (event) => {

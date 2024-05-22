@@ -18,6 +18,7 @@ function NewspaperAnalytics({ analyticsProcessing, analyticsProcessed }) {
     setIsError(isError);
   };
   const handleLoadAnalytics = async () => {
+    handleSetMessage("");
     setAnalytics({});
     setViewAnalytics(false);
     const result = await loadAnalytics();
