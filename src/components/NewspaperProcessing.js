@@ -24,10 +24,10 @@ const NewspaperProcessing = ({
     const uploadedFile = event.target.files[0];
     if (uploadedFile) {
       if (
-        uploadedFile.size > 10 * 1024 * 1024 ||
+        uploadedFile.size > 50 * 1024 * 1024 ||
         uploadedFile.type !== "application/pdf"
       ) {
-        handleSetMessage("File size must be pdf and less than 10MB");
+        handleSetMessage("File size must be pdf and less than 50MB", true);
         setFile(null);
         setHasFileUploaded(false);
         return;
